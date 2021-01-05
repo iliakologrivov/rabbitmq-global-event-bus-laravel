@@ -1,0 +1,31 @@
+{
+    "name": "iliakologrivov/rabbitmq-global-event-bus-laravel",
+    "description": "events bus for laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ilia Kologrivov",
+            "email": "iliakologrivov@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.2",
+        "iliakologrivov/rabbitmq-global-event-bus": "dev-master",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "IliaKologrivov\\RabbitMQGlobalEventBusLaravel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IliaKologrivov\\RabbitMQGlobalEventBusLaravel\\EventBusPublishesServiceProvider"
+            ]
+        }
+    }
+}
