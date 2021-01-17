@@ -28,14 +28,30 @@ composer require iliakologrivov/rabbitmq-global-event-bus-laravel
 Для обработки событий необходимо добавить запись в EventServiceProvider с описанием события и listener`a 
 
 ## Отправка событий
-Для отправки событий необходимо создать дочерний класс события от IliaKologrivov\RabbitMQGlobalEventBus\Sender\AbstractEvent
-Отправка события производится через IliaKologrivov\RabbitMQGlobalEventBus\Sender\Sender
+Для отправки событий необходимо создать класс события от IliaKologrivov\RabbitMQGlobalEventBus\Sender\EventContract
+Отправка события производится через IliaKologrivov\RabbitMQGlobalEventBus\Sender\Sender::send()
 ```php
-$event = new class extends \IliaKologrivov\RabbitMQGlobalEventBus\Sender\AbstractEvent {
+$event = new class implements IliaKologrivov\RabbitMQGlobalEventBus\Sender\Event {
     public function getName(): string
     {
         return 'example';
     }
+
+    public function getPayload(): array
+    {
+        return get_object_vars($this);
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     *
+     * @throws \Exception
+     */
+    public function getTimestamp(): \DateTimeImmutable
+    {
+        return new \DateTimeImmutable();
+    }
+
 };
 
 app(IliaKologrivov\RabbitMQGlobalEventBus\Sender\Sender::class)->send($event);
