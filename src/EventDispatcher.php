@@ -21,11 +21,11 @@ class EventDispatcher implements EventDispatcherContract
 
     public function dispatch(object $event)
     {
-        $this->dispatcher->dispatch(new AfterDispatchEvent($event));
+        $this->dispatcher->dispatch(new BeforeDispatchEvent($event));
 
         $result = $this->dispatcher->dispatch($event);
 
-        $this->dispatcher->dispatch(new BeforeDispatchEvent($event));
+        $this->dispatcher->dispatch(new AfterDispatchEvent($event));
 
         return $result;
     }
